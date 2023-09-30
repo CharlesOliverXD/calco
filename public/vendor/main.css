@@ -34,10 +34,10 @@ body {
 
 }
 
+
 #main .touches table tr td:hover {
     background-color: rgb(226, 226, 226);
     cursor: pointer;
-   
 
 }
 
