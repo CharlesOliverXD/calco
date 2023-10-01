@@ -2,31 +2,52 @@ import React, { useState } from "react";
 
 export default function App() {
 
-    const [nombre, setNombre] = useState(parseFloat(0));
+    const [nombre, setNombre] = useState("0");
+    const [result, setResult] = useState();
+
+    // let operant1 , operateur, operant2 ;
 
     function handleChange(value) {
-        setNombre(`${parseFloat(nombre)}` + value)
+        setNombre(`${nombre}` + value)
+
     }
 
-    function putDot() {
-        const Doted = nombre.includes(",");
+    function Initial() {
+        setNombre("0");
+        setResult("");
+    }
 
-        // Doted ? setNombre(`${parseFloat(nombre)}`) : setNombre(`${parseFloat(nombre)}` + ',0') ;
+    function putDote() {
+        if (nombre == 0) {
+            setNombre('0.');
+        } else {
+            const Doted = nombre.includes(".");
+            Doted ? setNombre(nombre) : setNombre(`${nombre}` + '.');
+        }
+
     }
 
     function Delete() {
 
-        let len = parseInt(nombre.length) ;
-        console.log("avant "+len);
+        let len = parseInt(nombre.length - 1);
+        if (nombre == 0) { }
 
-        // if (len === 0) {
-        //     setNombre(0);
-        // } else {
-        //     setNombre(nombre.slice(0, -1));
+        if (len <= 0) {
+            setNombre("0");
+        } else {
+            setNombre(nombre.slice(0, -1));
+        }
 
-        // }
+    }
 
-        console.log(nombre.length-1);
+    function Operations(operande) {
+        switch (operande) {
+            case "+":
+                setResult( parseFloat(nombre) );
+
+        }
+
+
     }
 
     return (
@@ -34,44 +55,45 @@ export default function App() {
         <div id="main" className="">
             <div className="claco ">
                 <div className="ecran mb-2">
-                    <input value={nombre} disabled />
+                    <input name="ecran" value={nombre} disabled />
+                    <input name="result" className="result" value={result} disabled />
                 </div>
 
                 <div className="touches">
                     <table>
                         <tbody>
                             <tr>
-                                <td id="init" onClick={() => setNombre(0)} >AC</td>
-                                <td className="manip">/</td>
-                                <td className="manip">X</td>
-                                <td onClick={() => Delete()} className="manip">Del.</td>
+                                <th id="init" onClick={() => Initial()} >AC</th>
+                                <th className="manip">/</th>
+                                <th className="manip">X</th>
+                                <th onClick={() => Delete()} className="manip">Del.</th>
                             </tr>
 
                             <tr>
-                                <td onClick={() => handleChange(7)}>7</td>
-                                <td onClick={() => handleChange(8)}>8</td>
-                                <td onClick={() => handleChange(9)}>9</td>
-                                <td className="manip">-</td>
+                                <th onClick={() => handleChange(7)}>7</th>
+                                <th onClick={() => handleChange(8)}>8</th>
+                                <th onClick={() => handleChange(9)}>9</th>
+                                <th className="manip">-</th>
                             </tr>
 
                             <tr>
-                                <td onClick={() => handleChange(4)}>4</td>
-                                <td onClick={() => handleChange(5)}>5</td>
-                                <td onClick={() => handleChange(6)}>6</td>
-                                <td className="manip">+</td>
+                                <th onClick={() => handleChange(4)}>4</th>
+                                <th onClick={() => handleChange(5)}>5</th>
+                                <th onClick={() => handleChange(6)}>6</th>
+                                <th onClick={() => { Operations("+") }} className="manip">+</th>
                             </tr>
 
                             <tr>
-                                <td onClick={() => handleChange(1)}>1</td>
-                                <td onClick={() => handleChange(2)}>2</td>
-                                <td onClick={() => handleChange(3)}>3</td>
-                                <td id="egal">=</td>
+                                <th onClick={() => handleChange(1)}>1</th>
+                                <th onClick={() => handleChange(2)}>2</th>
+                                <th onClick={() => handleChange(3)}>3</th>
+                                <th id="egal">=</th>
                             </tr>
 
                             <tr>
-                                <td onClick={() => setNombre(`${parseFloat(nombre / 100)}`)}>%</td>
-                                <td onClick={() => handleChange(0)}>0</td>
-                                <td onClick={() => putDot()}>.</td>
+                                <th onClick={() => setNombre(`${(nombre / 100)}`)}>%</th>
+                                <th onClick={() => handleChange(0)}>0</th>
+                                <th onClick={() => putDote()}>.</th>
                             </tr>
                         </tbody>
 

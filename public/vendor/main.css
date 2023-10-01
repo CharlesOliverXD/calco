@@ -1,5 +1,4 @@
 body {
-    background-color: red;
     margin: 0px;
     user-select: none;
 
@@ -19,55 +18,68 @@ body {
     padding-top: 40px;
 }
 
-#main .ecran,
 #main .ecran input {
     width: 400px;
-    height: 55px;
+    height: 70px;
+    padding-left: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    border: none;
 }
 
+#main .ecran input.result {
+   text-align: end;
+}
 
-#main .touches table tr td {
+#main .touches table tr th {
     width: 100px;
-    height: 70px;
+    height: 90px;
     text-align: center;
     transition: all 0.5s ease;
 
 }
 
 
-#main .touches table tr td:hover {
+#main .touches table tr th:hover {
     background-color: rgb(226, 226, 226);
     cursor: pointer;
 
 }
 
-#main .touches table tr td {
+#main .touches table tr th {
     background-color: whitesmoke;
     color: rgb(0, 0, 0);
     font-size: 20px;
 
 }
 
-#main .touches table tr td.manip {
-    background-color: rgb(255, 255, 0);
+#main .touches table tr th.manip {
+    /* background-color: rgb(255, 255, 0); */
+    background-color:#fadd67;
+    
     color: rgb(0, 0, 0);
 
 }
 
-#main .touches table tr td.manip:hover {
-    background-color: rgba(255, 255, 0, 0.784);
+#main .touches table tr th.manip:hover {
+    /* background-color: rgba(255, 255, 0, 0.784); */
+    background-color: #F2CD3E ;
 
 }
 
-#main .touches table tr td#init {
+#main .touches table tr th#init {
     background-color: brown;
     color: white;
-
 }
 
-#main .touches table tr td#egal {
+#main .touches table tr th#init:hover {
+    background-color: rgb(220, 43, 43);
+}
+
+
+#main .touches table tr th#egal {
     position: absolute;
-    height: 140px;
+    height: 180px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,9 +90,9 @@ body {
 }
 
 
-#main .touches table tr td#egal:hover {
+#main .touches table tr th#egal:hover {
   
-    background-color: rgba(0, 0, 0, 0.351);
+    background-color: rgba(0, 0, 0, 0.746);
  
 
 }
