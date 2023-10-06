@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function App() {
 
     const [nombre, setNombre] = useState("0");
     const [result, setResult] = useState();
 
-    // let operant1 , operateur, operant2 ;
+    let elements=[] ;
 
     function handleChange(value) {
         setNombre(`${nombre}` + value)
@@ -14,11 +14,17 @@ export default function App() {
 
     function Initial() {
         setNombre("0");
-        setResult("");
+        setResult("0");
     }
 
+    useEffect(()=>{Initial()} , []) ;
+
+    useEffect((){
+        
+    },[]) ;
+
     function putDote() {
-        if (nombre == 0) {
+        if (nombre === 0) {
             setNombre('0.');
         } else {
             const Doted = nombre.includes(".");
@@ -30,7 +36,7 @@ export default function App() {
     function Delete() {
 
         let len = parseInt(nombre.length - 1);
-        if (nombre == 0) { }
+        if (nombre === 0) { }
 
         if (len <= 0) {
             setNombre("0");
@@ -43,7 +49,26 @@ export default function App() {
     function Operations(operande) {
         switch (operande) {
             case "+":
-                setResult( parseFloat(nombre) );
+                setResult(parseFloat(nombre));
+                if (nombre[nombre.length - 1] === "+") {
+
+                } else {
+                   
+                    elements.push(nombre.split("+")) ;
+                    elements.push("+") ;
+
+                    let somme =0;
+                    elements[0].forEach( (item)=>{
+                        somme = parseFloat(somme) + parseFloat(item) ;
+                        // console.log( item );
+                    } );
+                    
+                    setResult( parseFloat(somme) ) ;
+                    console.log( elements );
+
+                    setNombre(nombre + "+");
+
+                }
 
         }
 
