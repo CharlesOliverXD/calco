@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 
 export default function App() {
 
-    const [nombre, setNombre] = useState("0");
+    const [nombre, setNombre] = useState("");
     const [result, setResult] = useState();
 
-    let elements=[] ;
+    let Operators = ["+", "*", "/", "-"] ;
 
     function handleChange(value) {
         setNombre(`${nombre}` + value)
@@ -13,15 +13,22 @@ export default function App() {
     }
 
     function Initial() {
-        setNombre("0");
-        setResult("0");
+        setNombre("");
+        setResult("");
     }
 
-    useEffect(()=>{Initial()} , []) ;
+    useEffect(() => { Initial() }, []);
 
-    useEffect((){
-        
-    },[]) ;
+    useEffect(() => {
+        if (Operators.includes(nombre[nombre.length - 1])) {
+
+        } else {
+            setResult(eval(nombre));
+
+        }
+    }, [nombre]);
+
+
 
     function putDote() {
         if (nombre === 0) {
@@ -39,36 +46,59 @@ export default function App() {
         if (nombre === 0) { }
 
         if (len <= 0) {
-            setNombre("0");
+            setNombre("");
         } else {
             setNombre(nombre.slice(0, -1));
         }
 
     }
 
-    function Operations(operande) {
-        switch (operande) {
+    function AddOperator(operator){
+        if (!nombre.endsWith(operator)) {
+
+            if (Operators.includes(operator)) {
+                let indice = Operators.indexOf(operator);
+                Operators.splice(Operators.indexOf(operator), 1);
+            }
+
+            if (Operators.includes(nombre[nombre.length - 1])) {
+                // On remplace l'opérateur par "+"
+                let nombreRemp = nombre.slice(0, nombre.length-1)+ operator;
+                console.log(nombreRemp);
+                setNombre(nombreRemp);
+
+            } else {
+                setNombre(nombre + operator);
+
+            }
+
+        }
+
+        Operators = ["+", "*", "/", "-"] ;
+    }
+
+    function Operations(operator) {
+        switch (operator) {
             case "+":
-                setResult(parseFloat(nombre));
-                if (nombre[nombre.length - 1] === "+") {
 
-                } else {
-                   
-                    elements.push(nombre.split("+")) ;
-                    elements.push("+") ;
+                AddOperator("+") ;
 
-                    let somme =0;
-                    elements[0].forEach( (item)=>{
-                        somme = parseFloat(somme) + parseFloat(item) ;
-                        // console.log( item );
-                    } );
-                    
-                    setResult( parseFloat(somme) ) ;
-                    console.log( elements );
+                break;
+            case "-":
+                AddOperator("-") ;
 
-                    setNombre(nombre + "+");
+                break;
+            case "*":
+                AddOperator("*") ;
 
-                }
+                break;
+
+            case "/":
+
+                AddOperator("/") ;
+
+                break;
+
 
         }
 
@@ -89,8 +119,8 @@ export default function App() {
                         <tbody>
                             <tr>
                                 <th id="init" onClick={() => Initial()} >AC</th>
-                                <th className="manip">/</th>
-                                <th className="manip">X</th>
+                                <th onClick={() => Operations("/")} className="manip">/</th>
+                                <th onClick={() => Operations("*")} className="manip">X</th>
                                 <th onClick={() => Delete()} className="manip">Del.</th>
                             </tr>
 
@@ -98,7 +128,7 @@ export default function App() {
                                 <th onClick={() => handleChange(7)}>7</th>
                                 <th onClick={() => handleChange(8)}>8</th>
                                 <th onClick={() => handleChange(9)}>9</th>
-                                <th className="manip">-</th>
+                                <th onClick={() => Operations("-")} className="manip">-</th>
                             </tr>
 
                             <tr>
@@ -112,7 +142,7 @@ export default function App() {
                                 <th onClick={() => handleChange(1)}>1</th>
                                 <th onClick={() => handleChange(2)}>2</th>
                                 <th onClick={() => handleChange(3)}>3</th>
-                                <th id="egal">=</th>
+                                <th onClick={() => setNombre(result.toString())} id="egal">=</th>
                             </tr>
 
                             <tr>
